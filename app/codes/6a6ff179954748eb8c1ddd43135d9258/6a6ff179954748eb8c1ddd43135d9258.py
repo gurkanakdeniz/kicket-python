@@ -1,0 +1,1 @@
+import uuiddef jedi():   return "jedi"

@@ -1,0 +1,12 @@
+http://localhost:5000/create
+
+{
+	"method" : "def ex():\treturn \"gibi gibi asdas\"",
+	"imports" : ""
+}
+
+http://localhost:5000/run/uuid
+
+{
+
+}
