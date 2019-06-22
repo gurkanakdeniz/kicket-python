@@ -1,6 +1,6 @@
 from flask import request, redirect
 from app import app
-from app.controller import jedi, createApi, runApi
+from app.controller import jedi, createApi, runApi, exampleApi
 
 @app.route('/')
 def index():
@@ -13,6 +13,10 @@ def create():
 @app.route('/run/<string:uuid>', methods=['POST'])
 def run(uuid):
     return runApi(uuid)
+
+@app.route('/example', methods=['GET'])
+def example():
+    return exampleApi()
 
 # @app.errorhandler(Exception)
 # def error_page(e):

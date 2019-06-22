@@ -1,28 +1,34 @@
 import uuid
 import os
 import sys
+import json
 from app import app
 from app.config import Config
 
-def create(imports, method):
+def example():
+    example = {'exampleCode' : "def ex():\n\treturn \"jedi\"", 'exampleRequest' : "{}"}
+    return json.dumps(example)
+
+def create(code):
     uuidStr = str(uuid.uuid4()).replace("-", "")
     createFolder(uuidStr)
-    createFile(uuidStr, imports, method)
-    return uuidStr
+    createFile(uuidStr,code)
+    createResponse = {'endpoint' : uuidStr, 'platform' : "python"}
+    return json.dumps(createResponse)
 
 def run(uuidStr):
     m = load_module(uuidStr)
-    return str(m.ex())
+    response = {'response' : str(m.ex())}
+    return json.dumps(response)
 
 def createFolder(uuidStr):
     path = getPath(uuidStr)
     if not os.path.exists(path):
         os.makedirs(path)
 
-def createFile(uuidStr, imports, method):
+def createFile(uuidStr, code):
     f = open(getFilePath(uuidStr),"w+")
-    f.write(imports)
-    f.write(method)
+    f.write(code)
     f.close()
 
 def load_module(module):

@@ -5,6 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
+app/codes/
 
 # Distribution / packaging
 .Python
@@ -86,6 +87,7 @@ celerybeat-schedule
 .venv
 env/
 venv/
+vexec/
 ENV/
 env.bak/
 venv.bak/
