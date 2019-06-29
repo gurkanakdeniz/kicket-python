@@ -2,24 +2,58 @@ import uuid
 import os
 import sys
 import json
+import json.decoder
+import time
+import multiprocessing
 from app import app
 from app.config import Config
 
 def example():
-    example = {'exampleCode' : "def ex():\n\treturn \"jedi\"", 'exampleRequest' : "{}"}
+    example = {'exampleCode' : "def ex(args):\n\treturn args.get('jedi')", 'exampleRequest' : "{\"args\" : {\"jedi\": \"return of the jedi\"}}"}
     return json.dumps(example)
 
-def create(code):
-    uuidStr = str(uuid.uuid4()).replace("-", "")
+def create(code, currentUuid):
+    uuidStr = currentUuid
+    if currentUuid is None:
+        uuidStr = str(uuid.uuid4()).replace("-", "")
+
     createFolder(uuidStr)
     createFile(uuidStr,code)
     createResponse = {'endpoint' : uuidStr, 'platform' : "python"}
     return json.dumps(createResponse)
 
-def run(uuidStr):
+def run(uuidStr, args):
     m = load_module(uuidStr)
-    response = {'response' : str(m.ex())}
+    manager = multiprocessing.Manager()
+    processResponse = manager.dict()
+    methodArgs = None;
+    if args is not None:
+        methodArgs = getArgs(args)
+
+    process = multiprocessing.Process(target=runner, args= (m.ex, methodArgs, processResponse))
+    m = process.start()
+    # time.sleep(8)
+    process.join(8)
+    process.terminate()
+
+    response = {'response' : getRunResponse(processResponse)} #str(m.ex())}
     return json.dumps(response)
+
+def getArgs(args):
+    try:
+        return json.loads(args)
+    except Exception as e:
+        return args
+
+def runner(fc, args, processResponse):
+    result = str(fc(args))
+    processResponse["result"] = result
+
+def getRunResponse(processResponse):
+    try:
+        return processResponse["result"]
+    except Exception as e:
+        return "null"
 
 def createFolder(uuidStr):
     path = getPath(uuidStr)

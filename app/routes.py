@@ -12,7 +12,11 @@ def create():
 
 @app.route('/run/<string:uuid>', methods=['POST'])
 def run(uuid):
-    return runApi(uuid)
+    return runApi(uuid, request.get_json())
+
+@app.route('/run/<string:uuid>', methods=['GET'])
+def runGet(uuid):
+    return runApi(uuid, None)
 
 @app.route('/example', methods=['GET'])
 def example():
