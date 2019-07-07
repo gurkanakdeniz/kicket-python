@@ -10,8 +10,11 @@ def jedi():
 def createApi(body):
     response = create(body['code'], getArgs(body, 'uuid'))
 
-    if Config.GIT_ACTIVE == "true":
-        commit_push(response["endpoint"])
+    try:
+        if Config.GIT_ACTIVE == "true":
+            commit_push(response["endpoint"])
+    except Exception as e:
+        print(e)
 
     return json.dumps(response)
 
