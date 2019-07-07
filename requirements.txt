@@ -7,3 +7,4 @@ Jinja2==2.10.1
 MarkupSafe==1.1.1
 smmap2==2.0.5
 Werkzeug==0.15.4
+gunicorn==19.9.0
