@@ -1,1 +1,0 @@
-import uuiddef ex():	return "gibi gibi asdas"

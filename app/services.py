@@ -20,7 +20,7 @@ def create(code, currentUuid):
     createFolder(uuidStr)
     createFile(uuidStr,code)
     createResponse = {'endpoint' : uuidStr, 'platform' : "python"}
-    return json.dumps(createResponse)
+    return createResponse
 
 def run(uuidStr, args):
     m = load_module(uuidStr)

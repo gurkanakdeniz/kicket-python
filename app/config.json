@@ -1,0 +1,17 @@
+{
+  "git": {
+    "GIT_URL": "None",
+    "GIT_BRANCH": "None",
+    "GIT_TOKEN": "None",
+    "GIT_AUTH_URL": "None",
+    "GIT_ACTIVE": "false"
+  },
+  "other": {
+    "preprocessing_queue": [
+      "preprocessing.scale_and_center",
+      "preprocessing.dot_reduction",
+      "preprocessing.connect_lines"
+    ],
+    "use_anonymous": true
+  }
+}
