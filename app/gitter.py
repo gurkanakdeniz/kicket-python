@@ -1,6 +1,7 @@
 from app.config import Config
 import shutil
 from git import Repo
+import subprocess
 
 def clone_remote():
     print(Config.GIT_ROOT_PATH)
@@ -17,7 +18,9 @@ def clone_remote():
     git_auth_url = git_auth_url.replace("TOKEN", git_token)
     git_auth_url = git_auth_url.replace("URL", git_url)
 
-    Repo.clone_from(git_auth_url, git_dir, branch=git_branch)
+    git_branch = "--branch=git_branch".replace("git_branch", git_branch)
+    subprocess.run(["git", "clone", git_branch , "-v", git_auth_url, git_dir])
+    # Repo.clone_from(git_auth_url, git_dir, branch=git_branch)
 
     return "jedi"
 
