@@ -10,7 +10,6 @@ if not os.path.exists(Config.ROOT_PATH):
 
 try:
     if Config.GIT_ACTIVE == "true":
-        os.makedirs(Config.ROOT_PATH)
         clone_remote()
 except Exception as e:
     print(e)
