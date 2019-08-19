@@ -9,7 +9,7 @@ from app import app
 from app.config import Config
 
 def example():
-    example = {'exampleCode' : "// you shouldn't change this -> <def ex(args)>\ndef ex(args):\n\treturn args.get('jedi')", 'exampleRequest' : "{\"args\" : {\"jedi\": \"return of the jedi\"}}"}
+    example = {'exampleCode' : "# you shouldn't change this -> <def ex(args)>\ndef ex(args):\n\treturn args.get('jedi')", 'exampleRequest' : "{\"args\" : {\"jedi\": \"return of the jedi\"}}"}
     return json.dumps(example)
 
 def create(code, currentUuid):
